@@ -8,16 +8,21 @@ import Details from "./components/Details";
 import Default from "./components/Default";
 import Cart from "./components/Cart";
 import Modal from "./components/Modal";
+import Login from './components/Auth/Login'
+import Register2 from './components/Auth/Register2'
 class App extends Component {
   render() {
     return (
       <React.Fragment>
         <Navbar />
         <Switch>
+          <Route path="/register" component={Register2} />
+          <Route path="/login" component={Login} />
           <Route exact path="/" component={ProductList} />
           <Route path="/details" component={Details} />
           <Route path="/cart" component={Cart} />
           <Route component={Default} />
+         
         </Switch>
         <Modal />
       </React.Fragment>

@@ -5,20 +5,21 @@
   --mainDark: #232528;
   --mainDark: #000;
   --mainYellow: #ffa400;
+  --mainGreen: #479664;
 }
 
 body {
-  font-family: "Oswald", sans-serif !important;
+  font-family: "Times New Roman", sans-serif !important;
   background: var(--mainWhite) !important;
   color: var(--mainDark) !important;
 }
 .text-title {
-  font-family: "Permanent Marker", cursive;
+  font-family: "Times New Roman", cursive;
   letter-spacing: 0.3rem;
   text-transform: uppercase;
 }
 .text-blue {
-  color: var(--mainBlue);
+  color: var(--mainGreen);
 }
 .text-bright {
   color: var(--lightBlue);
@@ -42,4 +43,16 @@ body {
   cursor: pointer;
   font-size: 1.2rem;
   color: var(--mainYellow);
+}
+.ml-auto {
+  color: #f3f3f3;
+  
+}
+
+.mr-2 {
+  color: #f3f3f3;
+}
+
+.fas .fa-cart-plus {
+  color: #f3f3f3;
 }

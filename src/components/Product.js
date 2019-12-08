@@ -28,7 +28,7 @@ export default class Product extends Component {
                   >
                     {inCart ? (
                       <p className="text-capitalize mb-0" disabled>
-                        in cart
+                        W koszyku
                       </p>
                     ) : (
                       <i className="fas fa-cart-plus" />
@@ -41,7 +41,7 @@ export default class Product extends Component {
           <div className="card-footer d-flex justify-content-between">
             <p className="align-self-center mb-0">{title}</p>
             <h5 className="text-blue font-italic mb-0">
-              <span className="mr-1">$</span>
+              <span className="mr-1">zł</span>
               {price}
             </h5>
           </div>
@@ -54,12 +54,12 @@ export default class Product extends Component {
 const ProductWrapper = styled.div`
   .card {
     border-color: transparent;
-    transition: all 1s linear;
+    transition: all 0.3s linear;
   }
   .card-footer {
     background: transparent;
     border-top: transparent;
-    transition: all 1s linear;
+    transition: all 0.3s linear;
   }
   &:hover {
     .card {
@@ -75,7 +75,7 @@ const ProductWrapper = styled.div`
     overflow: hidden;
   }
   .card-img-top {
-    transition: all 1s linear;
+    transition: all 0.3s linear;
   }
   .img-container:hover .card-img-top {
     transform: scale(1.2);
@@ -91,7 +91,7 @@ const ProductWrapper = styled.div`
     font-size: 1.4rem;
     border-radius: 0.5rem 0 0 0;
     transform: translate(100%, 100%);
-    transition: all 1s ease-in-out;
+    transition: all 0.3s ease-in-out;
   }
   .img-container:hover .cart-btn {
     transform: translate(0, 0);

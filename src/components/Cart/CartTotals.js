@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import PayPalButton from "./PayPalButton";
+//import PayPalButton from "./PayPalButton";
+import { Button } from 'semantic-ui-react'
+
 import { Link } from "react-router-dom";
 export default class CartTotals extends Component {
   render() {
@@ -26,26 +28,28 @@ export default class CartTotals extends Component {
                       clearCart();
                     }}
                   >
-                    clear cart
+                    wyczyść koszyk
                   </button>
                 </Link>
                 <h5>
-                  <span className="text-title"> subtotal :</span>{" "}
-                  <strong>$ {cartSubTotal} </strong>
+                  <span className="text-title"> razem netto :</span>{" "}
+                  <strong>zł {cartSubTotal} </strong>
                 </h5>
                 <h5>
-                  <span className="text-title"> tax :</span>{" "}
-                  <strong>$ {cartTax} </strong>
+                  <span className="text-title"> podatek vat :</span>{" "}
+                  <strong>zł {cartTax} </strong>
                 </h5>
                 <h5>
-                  <span className="text-title"> total :</span>{" "}
-                  <strong>$ {cartTotal} </strong>
+                  <span className="text-title"> razem :</span>{" "}
+                  <strong>zł {cartTotal} </strong>
                 </h5>
-                <PayPalButton
+                <button className="btn btn-outline-success text-uppercase mb-3 px-5"
+                    type="button">Złóż zamówienie</button>
+                {/*<PayPalButton
                   totalAmount={cartTotal}
                   clearCart={clearCart}
                   history={history}
-                />
+                />*/}
               </div>
             </div>
           </div>

@@ -32,24 +32,24 @@ export default class Details extends Component {
                 </div>
                 {/* prdoduct info */}
                 <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
-                  <h1>model : {title}</h1>
+                  <h1>Nazwa : {title}</h1>
                   <h4 className="text-title text-uppercase text-muted mt-3 mb-2">
-                    made by : <span className="text-uppercase">{company}</span>
+                    Producent : <span className="text-uppercase">{company}</span>
                   </h4>
                   <h4 className="text-blue">
                     <strong>
-                      price : <span>$</span>
-                      {price}
+                      Cena : {price}
+                      <span>zł</span>
                     </strong>
                   </h4>
                   <p className="text-capitalize font-weight-bold mt-3 mb-0">
-                    some info about product :
+                    Informacje o produkcie :
                   </p>
                   <p className="text-muted lead">{info}</p>
                   {/* buttons */}
                   <div>
                     <Link to="/">
-                      <ButtonContainer>back to products</ButtonContainer>
+                      <ButtonContainer>Powrót do produktów</ButtonContainer>
                     </Link>
                     <ButtonContainer
                       cart
@@ -59,7 +59,7 @@ export default class Details extends Component {
                         value.openModal(id);
                       }}
                     >
-                      {inCart ? "in cart" : "add to cart"}
+                      {inCart ? "w koszyku" : "dodaj do koszyka"}
                     </ButtonContainer>
                   </div>
                 </div>

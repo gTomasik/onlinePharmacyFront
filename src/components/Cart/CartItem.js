@@ -15,11 +15,11 @@ export default class CartItem extends Component {
           />
         </div>
         <div className="col-10 mx-auto col-lg-2 ">
-          <span className="d-lg-none">product :</span> {title}
+          <span className="d-lg-none">produkt :</span> {title}
         </div>
         <div className="col-10 mx-auto col-lg-2 ">
           <strong>
-            <span className="d-lg-none">price :</span> ${price}
+            <span className="d-lg-none">cena :</span> zł{price}
           </strong>
         </div>
         <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0 ">
@@ -52,7 +52,7 @@ export default class CartItem extends Component {
         </div>
 
         <div className="col-10 mx-auto col-lg-2 ">
-          <strong>item total : ${total} </strong>
+          <strong>całkowita cena : ${total} </strong>
         </div>
       </div>
     );
