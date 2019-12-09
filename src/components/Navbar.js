@@ -67,11 +67,19 @@ export default class Navbar extends Component {
         </ul>
         <ul className="navbar-nav align-items-center" >
           <li className="nav-item ml-5">
+            <Link to="/transactions" className="nav-link">
+              Zamowienia
+            </Link>
+          </li>
+        </ul>
+        <ul className="navbar-nav align-items-center" >
+          <li className="nav-item ml-5">
             <Link to="/" className="nav-link">
               Nazwa Użytkwnika: <b>{this.state.name}</b>
             </Link>
           </li>
         </ul>
+
         <Icon name="power off" color ="white" size="big" onClick={this.logingOut}/>
         <Link to="/cart" className="ml-auto " >
         <Icon name="shopping cart" color ="white" size="big" />

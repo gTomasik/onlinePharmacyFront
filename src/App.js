@@ -10,12 +10,14 @@ import Cart from "./components/Cart";
 import Modal from "./components/Modal";
 import Login from './components/Auth/Login'
 import Register2 from './components/Auth/Register2'
+import Transactions from './components/transactions/Transactions';
 class App extends Component {
   render() {
     return (
       <React.Fragment>
         <Navbar />
         <Switch>
+          <Route path ='/transactions' component={Transactions} />
           <Route path="/register" component={Register2} />
           <Route path="/login" component={Login} />
           <Route exact path="/" component={ProductList} />
