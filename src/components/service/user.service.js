@@ -103,6 +103,13 @@ function register(login, password, email, name, surname, role) {
 
 function saveNewTransaction(prescription, user, products) {
     console.log(prescription, user, products)
+    const Ids = [] 
+    products.map(product => {
+        for(let i =0; i < product.count; i++){
+            Ids.push(product.id)
+        }
+    })
+    console.log(Ids)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json',
@@ -114,7 +121,7 @@ function saveNewTransaction(prescription, user, products) {
             "user": user,
             "prescriptionRequired": prescription,
             "prescriptions": null, 
-            "products": products
+            "products": Ids
         })
     };
 
