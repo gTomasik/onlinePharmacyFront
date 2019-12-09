@@ -6,6 +6,7 @@ export const userService = {
     logout,
     register,
     saveNewProject,
+    saveNewTransaction,
     addUserToProject,
     getAllProjects,
     getAllUsers,
@@ -36,21 +37,24 @@ function getAllProducts() {
     return fetch(`${config.apiUrl}/api/product/all`, requestOptions)
         .then(handleResponse)
         .then(response => {
-            console.log("response: ",response)
             return response;
         });
 }
 function login(login, password) {
+    console.log(login, password)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json',
         "cache-control": "no-cache",},
         "processData": false,
-        body: JSON.stringify({ login, password }),
+        body: JSON.stringify({
+            "login": login,
+            "password": password,
+        }),
     };
 
     return fetch(`${config.apiUrl}/api/account/login`, requestOptions)
-        .then(handleResponse => console.log("from service: ", handleResponse))
+        .then(handleResponse)
         .catch(function() {
             console.log("error")
         })
@@ -63,6 +67,7 @@ function login(login, password) {
                 }
                 user.authdata = window.btoa(login + ':' + password);
                 localStorage.setItem('user', JSON.stringify(user));
+                
             }
             return user;
         });
@@ -73,23 +78,50 @@ function register(login, password, email, name, surname, role) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            "email": email,
             "login": login,
-            "name": name,
             "password": password,
+            "email": email,
+            "name": name,
+            "surname": surname,
             "role": role,
-            "surname": surname
            })
     };
     return fetch(`${config.apiUrl}/api/account/register`, requestOptions)
-        .then(handleResponse)
+        .then(()=>console.log(handleResponse))
+        
         .then(user => {
+            console.log(user)
             if (user) {
                 console.log("Register succesful");
                 user.authdata = window.btoa(login + ':' + password);
                 localStorage.setItem('user', JSON.stringify(user));
             }
             return user;
+        });
+        
+}
+
+function saveNewTransaction(prescription, user, products) {
+    console.log(prescription, user, products)
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json',
+        "cache-control": "no-cache",},
+        "processData": false,
+        body: JSON.stringify({
+            "number": Math.floor(Math.random() * 101),  
+            "status": "WAITING",
+            "user": user,
+            "prescriptionRequired": prescription,
+            "prescriptions": null, 
+            "products": products
+        })
+    };
+
+    return fetch(`${config.apiUrl}/api/transaction/add`, requestOptions)
+        .then(handleResponse)
+        .then(response => {
+            return response;
         });
 }
 
@@ -99,7 +131,16 @@ function saveNewProject(name, description, startDate, endDate, img, maxUsers) {
         headers: { 'Content-Type': 'application/json',
         "cache-control": "no-cache",},
         "processData": false,
-        body: JSON.stringify({"name":name, "description":description, "startingDate":startDate, "finishDate":endDate, "photo":img, "maxUsers":parseInt(maxUsers), "actualUsers":0, "stage":"REGISTRATION"})
+        body: JSON.stringify({
+            "name":name, 
+            "description":description, 
+            "startingDate":startDate, 
+            "finishDate":endDate, 
+            "photo":img, 
+            "maxUsers":parseInt(maxUsers), 
+            "actualUsers":0, 
+            "stage":"REGISTRATION"
+        })
     };
 
     return fetch(`${config.apiUrl}/api/project/add`, requestOptions)
@@ -108,6 +149,8 @@ function saveNewProject(name, description, startDate, endDate, img, maxUsers) {
             return response;
         });
 }
+
+
 
 function addUserToProject(projectId, userId) {
     const requestOptions = {
@@ -318,6 +361,7 @@ function getUser(userId) {
 
 function logout() {
     localStorage.removeItem('user');
+    window.location.reload();
 }
 
 function handleResponse(response) {

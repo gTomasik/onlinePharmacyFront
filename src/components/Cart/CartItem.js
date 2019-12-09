@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 export default class CartItem extends Component {
   render() {
-    const { id, title, img, price, total, count } = this.props.item;
+    const { id, name, image, cost, total, count } = this.props.item;
     const { increment, decrement, removeItem } = this.props.value;
 
     return (
       <div className="row my-1 text-capitalize text-center">
         <div className="col-10 mx-auto col-lg-2">
           <img
-            src={img}
+            src={image}
             style={{ width: "5rem", heigth: "5rem" }}
             className="img-fluid"
             alt=""
           />
         </div>
         <div className="col-10 mx-auto col-lg-2 ">
-          <span className="d-lg-none">produkt :</span> {title}
+          <span className="d-lg-none">produkt :</span> {name}
         </div>
         <div className="col-10 mx-auto col-lg-2 ">
           <strong>
-            <span className="d-lg-none">cena :</span> zł{price}
+            <span className="d-lg-none">cena :</span> zł{cost}
           </strong>
         </div>
         <div className="col-10 mx-auto col-lg-2 my-2 my-lg-0 ">
@@ -52,8 +52,8 @@ export default class CartItem extends Component {
         </div>
 
         <div className="col-10 mx-auto col-lg-2 ">
-          <strong>całkowita cena : ${total} </strong>
-        </div>
+          <strong>całkowita cena :{total}  zł</strong>
+        </div> 
       </div>
     );
   }

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { userService } from '../service/user.service';
 export default class Login extends Component {
   state = {
-    email: '',
+    username: '',
     password: '',
     errors: [],
     loading: false,
@@ -22,40 +22,23 @@ export default class Login extends Component {
   handleSubmit = event => {
     
     event.preventDefault()
-    const { email, password } = this.state;
+    const { username, password } = this.state;
     if(this.isFormValid(this.state)){
-      console.log(email, password)
       this.setState({ errors: [], loading: true})
-      userService.login(email, password)
+      userService.login(username, password)
       .then(
           user => {
-              console.log(user)
+
               const { from } = this.props.location.state || { from: { pathname: "/" } };
-              //this.props.history.push(from);
-              //window.location.reload();
+              this.props.history.push(from);
+              window.location.reload();
           },
           error => this.setState({ error, loading: false })
       );
-      
-      /*
-      firebase
-      .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(signedInUser => {
-        console.log(signedInUser)
-      })
-      .catch(err => {
-        console.error(err)
-        this.setState({
-          errors: this.state.errors.concat(err),
-          loading: false
-        })
-      })
-      */
     }
   }
 
-  isFormValid = ({ email, password} ) => email && password
+  isFormValid = ({ username, password} ) => username && password
 
   handleInputError = (errors, inputName) => {
     return errors.some(error => 
@@ -64,7 +47,7 @@ export default class Login extends Component {
 
   render() {
     const { 
-      email, 
+      username, 
       password, 
       errors,
       loading
@@ -81,12 +64,12 @@ export default class Login extends Component {
             <Segment stacked>
 
               <Form.Input 
-                fluid name="email" 
+                fluid name="username" 
                 icon="mail" 
                 iconPosition="left"
                 placeholder="Email Adress" 
                 onChange={this.handleChange}
-                value={email}
+                value={username}
                 className={this.handleInputError(errors, 'email')}
                 type="text"
               />

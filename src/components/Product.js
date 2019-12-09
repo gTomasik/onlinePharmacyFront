@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ProductConsumer } from "../context";
 export default class Product extends Component {
   render() {
-    const { id, title, img, price, inCart } = this.props.product;
+    const { id, name, image, cost, inCart } = this.props.product;
     return (
       <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
         <div className="card">
@@ -16,7 +16,7 @@ export default class Product extends Component {
                   onClick={() => value.handleDetail(id)}
                 >
                   <Link to="/details">
-                    <img src={img} alt="" className="card-img-top" />
+                    <img src={image} alt="" className="card-img-top" />
                   </Link>
                   <button
                     className="cart-btn"
@@ -39,10 +39,10 @@ export default class Product extends Component {
             }}
           </ProductConsumer>
           <div className="card-footer d-flex justify-content-between">
-            <p className="align-self-center mb-0">{title}</p>
+            <p className="align-self-center mb-0">{name}</p>
             <h5 className="text-blue font-italic mb-0">
               <span className="mr-1">zł</span>
-              {price}
+              {cost}
             </h5>
           </div>
         </div>

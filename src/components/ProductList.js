@@ -4,10 +4,30 @@ import Title from "./Title";
 import { storeProducts } from "../data";
 import styled from "styled-components";
 import { ProductConsumer } from "../context";
+import { userService } from './service/user.service'
 export default class ProductList extends Component {
+
   state = {
-    products: storeProducts
+    products: ''
   };
+ 
+  componentDidMount() {
+    userService.getAllProducts()
+          .then(data => {
+            data.map(el => {
+              el.company = ''
+              el.count = 0
+              el.total = 0
+              el.inCart = false
+            })
+            console.log(data)
+            this.setState({
+              products: data
+            })
+          }
+    )
+  }
+  
   render() {
     return (
       <React.Fragment>

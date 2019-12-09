@@ -4,20 +4,16 @@ import { Grid, Form, Segment, Button, Header, Message, Icon} from 'semantic-ui-r
 
 import { Link } from 'react-router-dom'
 import { userService } from '../service/user.service';
-const options = [
-  {key:'p', text: 'Klient', value: 'klient'},
-  {key:'d', text: 'Sprzedawca', value: 'sprzedawca'},
-]
-
-const selected = 'klient'
 
 export default class Register2 extends Component {
   state = {
     username: '',
+    name: '',
+    surname: '',
     email: '',
     password: '',
     passwordConfirmation: '',
-    role: '',
+    role: 'CUSTOMER',
     errors: [],
     loading: false,
   }
@@ -37,7 +33,7 @@ export default class Register2 extends Component {
       return true
     }
   }
-// jezezli ktorys ma 0 to wyrzucamy wartosc true 
+
   isFormEmpty = ({ username, email, password, passwordConfirmation}) => {
     return !username.length || !email.length || !password.length ||
       !passwordConfirmation.length
@@ -62,28 +58,23 @@ export default class Register2 extends Component {
   }
 
   handleSubmit = event => {
-   const {login, password, email, name, surname, role } = this.state
+   const {username, password, email, name, surname, role } = this.state
+  console.log(username, password, email, name, surname, role)
     event.preventDefault()
+    
     if(this.isFormValid()){
       this.setState({ errors: [], loading: true})
-      userService.register(login, password, email, name, surname, role)
+      userService.register(username, password, email, name, surname, role)
     .then(
       user => {
-          const { from } = this.props.location.state || { from: { pathname: "/" } };
-          this.props.history.push(from);
-          window.location.reload();
+         // const { from } = this.props.location.state || { from: { pathname: "/" } };
+        //  this.props.history.push(from);
+         // window.location.reload();
       },
       error => console.log(error)//this.setState({ error, loading: false })
      );
     }
-  }
-
-  saveUser = createdUser => {
-    return this.state.usersRef.child(createdUser.user.uid).set({
-      name: createdUser.user.displayName,
-      avatar: createdUser.user.photoURL,
-      //role: createdUser.user.accRole
-    })
+    
   }
 
   handleInputError = (errors, inputName) => {
@@ -92,10 +83,11 @@ export default class Register2 extends Component {
   }
 
 
-
   render() {
     const { 
-      username, 
+      username,
+      name,
+      surname, 
       email, 
       password, 
       passwordConfirmation, 
@@ -119,6 +111,24 @@ export default class Register2 extends Component {
                 placeholder="Username" 
                 onChange={this.handleChange}
                 value={username}
+                type="text"
+              />
+              <Form.Input 
+                fluid name="name" 
+                icon="user" 
+                iconPosition="left"
+                placeholder="Name" 
+                onChange={this.handleChange}
+                value={name}
+                type="text"
+              />
+              <Form.Input 
+                fluid name="surname" 
+                icon="user" 
+                iconPosition="left"
+                placeholder="Surname" 
+                onChange={this.handleChange}
+                value={surname}
                 type="text"
               />
               <Form.Input 
@@ -151,17 +161,12 @@ export default class Register2 extends Component {
                 className={this.handleInputError(errors, 'password')}
                 type="password"
               />
-              <Form.Select 
-                fluid name="role" 
-                placeholder="Accout Role"
-                options = {options}
-                defaultValue = {selected}
-              />
               <Button 
                 disabled={loading} 
                 className={ loading ? 'loading' : ''} 
                 color="grey" 
                 fluid 
+                onClick={this.handleSubmit}
                 size="large">
                   Potwierdź
               </Button>

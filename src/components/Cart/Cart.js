@@ -8,18 +8,6 @@ import EmptyCart from "./EmptyCart";
 
 import {userService} from '../service/user.service';
 export default class Store extends Component {
-  componentDidMount() {
-    userService.getAllProducts()
-          .then(data => {
-            console.log(data)
-         // data.sort((a,b) => (a.cost - b.cost));
-          //data.reverse();
-          //console.log(data);
-          // this.setState({ awards:data })
-          // console.log([data[1].name])
-          }
-    )
-  }
 
 
   render() {

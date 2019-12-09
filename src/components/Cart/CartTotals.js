@@ -3,7 +3,46 @@ import React, { Component } from "react";
 import { Button } from 'semantic-ui-react'
 
 import { Link } from "react-router-dom";
+import {userService} from '../service/user.service';
 export default class CartTotals extends Component {
+  state = {
+    user: ''
+  }
+  componentDidMount() {
+    if(localStorage.getItem('user') == null) {
+      return
+      
+  } else {
+    let user = JSON.parse(localStorage.getItem('user'))
+    let userId = parseInt(user.accountId) + 1
+      userService.getUser(userId)
+      .then(
+        user => {
+          this.setState({
+            user: user.id,
+
+          },console.log(user.id))
+        }
+      )
+    }
+  }
+
+  isPreNeeded = (data) => {
+    let prescription = false
+    data.map(obj => {
+      if (obj.prescriptionRequired === true){
+        prescription = true
+      }
+    })
+    return prescription
+  }
+
+  createTransaction = (prescription, user, cart) => {
+   console.log(prescription, user, cart)
+
+    userService.saveNewTransaction(prescription, user, cart)
+  }
+
   render() {
     const {
       cartSubTotal,
@@ -12,6 +51,10 @@ export default class CartTotals extends Component {
       cart,
       clearCart
     } = this.props.value;
+    
+    const prescription = this.isPreNeeded(cart)
+    const user = localStorage.getItem('user')
+    console.log(cart)
     const { history } = this.props;
     const emptyCart = cart.length === 0 ? true : false;
     return (
@@ -43,13 +86,14 @@ export default class CartTotals extends Component {
                   <span className="text-title"> razem :</span>{" "}
                   <strong>zł {cartTotal} </strong>
                 </h5>
-                <button className="btn btn-outline-success text-uppercase mb-3 px-5"
-                    type="button">Złóż zamówienie</button>
-                {/*<PayPalButton
-                  totalAmount={cartTotal}
-                  clearCart={clearCart}
-                  history={history}
-                />*/}
+                <button 
+                  className="btn btn-outline-success text-uppercase mb-3 px-5"
+                  type="button"
+                  onClick={() =>this.createTransaction(prescription, this.state.user, cart)}
+                >
+                    Złóż zamówienie
+                </button>
+
               </div>
             </div>
           </div>

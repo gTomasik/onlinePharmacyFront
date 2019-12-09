@@ -10,10 +10,10 @@ export default class Details extends Component {
           const {
             id,
             company,
-            img,
-            info,
-            price,
-            title,
+            image,
+            description,
+            cost,
+            name,
             inCart
           } = value.detailProduct;
 
@@ -22,30 +22,30 @@ export default class Details extends Component {
               {/* title */}
               <div className="row">
                 <div className="col-10 mx-auto text-center text-slanted text-blue my-5">
-                  <h1>{title}</h1>
+                  <h1>{name}</h1>
                 </div>
               </div>
               {/* end of title */}
               <div className="row">
                 <div className="col-10 mx-auto col-md-6 my-3">
-                  <img src={img} className="img-fluid" alt="" />
+                  <img src={image} className="img-fluid" alt="" />
                 </div>
-                {/* prdoduct info */}
+                {/* prdoduct description */}
                 <div className="col-10 mx-auto col-md-6 my-3 text-capitalize">
-                  <h1>Nazwa : {title}</h1>
+                  <h1>Nazwa : {name}</h1>
                   <h4 className="text-title text-uppercase text-muted mt-3 mb-2">
                     Producent : <span className="text-uppercase">{company}</span>
                   </h4>
                   <h4 className="text-blue">
                     <strong>
-                      Cena : {price}
+                      Cena : {cost}
                       <span>zł</span>
                     </strong>
                   </h4>
                   <p className="text-capitalize font-weight-bold mt-3 mb-0">
-                    Informacje o produkcie :
+                    informacje o produkcie :
                   </p>
-                  <p className="text-muted lead">{info}</p>
+                  <p className="text-muted lead">{description}</p>
                   {/* buttons */}
                   <div>
                     <Link to="/">

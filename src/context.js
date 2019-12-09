@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { storeProducts, detailProduct } from "./data";
+import { userService } from './components/service/user.service'
 const ProductContext = React.createContext();
 
 class ProductProvider extends Component {
@@ -14,12 +15,23 @@ class ProductProvider extends Component {
     cartTotal: 0
   };
   componentDidMount() {
-    this.setProducts();
+      userService.getAllProducts()
+            .then(data => {
+              data.map(el => {
+                el.company = ''
+                el.count = 0
+                el.total = 0
+                el.inCart = false
+              })
+              this.setProducts(data);
+            }
+      )
+    // this.setProducts();
   }
 
-  setProducts = () => {
+  setProducts = (data) => {
     let products = [];
-    storeProducts.forEach(item => {
+    data.forEach(item => {
       const singleItem = { ...item };
       products = [...products, singleItem];
     });
@@ -44,8 +56,8 @@ class ProductProvider extends Component {
     const product = tempProducts[index];
     product.inCart = true;
     product.count = 1;
-    const price = product.price;
-    product.total = price;
+    const cost = product.cost;
+    product.total = cost;
 
     this.setState(() => {
       return {
@@ -74,7 +86,7 @@ class ProductProvider extends Component {
     const index = tempCart.indexOf(selectedProduct);
     const product = tempCart[index];
     product.count = product.count + 1;
-    product.total = product.count * product.price;
+    product.total = product.count * product.cost;
     this.setState(() => {
       return {
         cart: [...tempCart]
@@ -92,7 +104,7 @@ class ProductProvider extends Component {
     if (product.count === 0) {
       this.removeItem(id);
     } else {
-      product.total = product.count * product.price;
+      product.total = product.count * product.cost;
       this.setState(() => {
         return { cart: [...tempCart] };
       }, this.addTotals);
