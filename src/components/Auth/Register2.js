@@ -108,7 +108,7 @@ export default class Register2 extends Component {
                 fluid name="username" 
                 icon="user" 
                 iconPosition="left"
-                placeholder="Username" 
+                placeholder="Nazwa użytkownika" 
                 onChange={this.handleChange}
                 value={username}
                 type="text"
@@ -117,7 +117,7 @@ export default class Register2 extends Component {
                 fluid name="name" 
                 icon="user" 
                 iconPosition="left"
-                placeholder="Name" 
+                placeholder="Imię" 
                 onChange={this.handleChange}
                 value={name}
                 type="text"
@@ -126,7 +126,7 @@ export default class Register2 extends Component {
                 fluid name="surname" 
                 icon="user" 
                 iconPosition="left"
-                placeholder="Surname" 
+                placeholder="Nazwisko" 
                 onChange={this.handleChange}
                 value={surname}
                 type="text"
@@ -135,7 +135,7 @@ export default class Register2 extends Component {
                 fluid name="email" 
                 icon="mail" 
                 iconPosition="left"
-                placeholder="Email Adress" 
+                placeholder="Adres Email" 
                 onChange={this.handleChange}
                 value={email}
                 className={this.handleInputError(errors, 'email')}
@@ -145,7 +145,7 @@ export default class Register2 extends Component {
                 fluid name="password" 
                 icon="lock" 
                 iconPosition="left"
-                placeholder="Password" 
+                placeholder="Hasło" 
                 onChange={this.handleChange}
                 value={password}
                 className={this.handleInputError(errors, 'password')}
@@ -155,7 +155,7 @@ export default class Register2 extends Component {
                 fluid name="passwordConfirmation" 
                 icon="repeat" 
                 iconPosition="left"
-                placeholder="Password Confirmation" 
+                placeholder="Powtórz Hasło" 
                 onChange={this.handleChange}
                 value={passwordConfirmation}
                 className={this.handleInputError(errors, 'password')}

@@ -13,7 +13,7 @@ export const Label = styled.label`
   display: flex;
   flex-direction: column;
   color: #777;
-  font-family: "Raleway", sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 0.8em;
   margin: 0.5em 0;
   position: relative;
@@ -38,20 +38,20 @@ export const Button = styled.button`
 // Text
 
 export const Title = styled.h1`
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Arial', sans-serif;
   font-weight: 600;
   color: #4d4d4d;
   font-size: 2.2em;
 `;
 
 export const Title2 = styled.h2`
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Arial', sans-serif;
   font-weight: 300;
   color: #4d4d4d;
   font-size: 1.8em;
 `;
 
 export const Text = styled.p`
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Arial', sans-serif;
   color: ${props => props.color || '#4d4d4d'}
 `;

@@ -12,6 +12,7 @@ export default class Navbar extends Component {
     name: "",
     surname: "",
     isLoggedIn: false,
+    role: '',
   };
   componentDidMount() {
     if(localStorage.getItem('user') == null) {
@@ -27,6 +28,7 @@ export default class Navbar extends Component {
             name: user.name,
             surname: user.surname,
             isLoggedIn: true,
+            role: user.role
           })
         }
       )
@@ -40,10 +42,7 @@ export default class Navbar extends Component {
   render() {
     return (
       <Nav className="navbar navbar-expand-sm  navbar-dark px-sm-5">
-        <Link to="/">
- 
-          <img src={logo} alt="store" className="navbar-brand" /> 
-        </Link>
+
         <ul className="navbar-nav align-items-center">
           <li className="nav-item ml-5">
             <Link to="/" className="nav-link">
@@ -67,8 +66,15 @@ export default class Navbar extends Component {
         </ul>
         <ul className="navbar-nav align-items-center" >
           <li className="nav-item ml-5">
+            <Link to="/user-transactions" className="nav-link">
+              Zamówienia użytkownika
+            </Link>
+          </li>
+        </ul>
+        <ul className="navbar-nav align-items-center" >
+          <li className="nav-item ml-5">
             <Link to="/transactions" className="nav-link">
-              Zamowienia
+             {this.state.role === 'EMPLOYEE' ? 'Zamówienia' : ''} 
             </Link>
           </li>
         </ul>
@@ -79,21 +85,11 @@ export default class Navbar extends Component {
             </Link>
           </li>
         </ul>
-
-        <Icon name="power off" color ="white" size="big" onClick={this.logingOut}/>
+        <Link to="/" className="ml-auto " >
+          <Icon name="power off" color ="white" size="big" onClick={this.logingOut}/>
+        </Link>
         <Link to="/cart" className="ml-auto " >
-        <Icon name="shopping cart" color ="white" size="big" />
-        
-         { /*
-          <ButtonContainer>
-            
-            <span className="mr-2 ">
-              <i className="fas fa-cart-plus " />
-            </span>
-            Koszyk
-
-          </ButtonContainer>
-          */}
+          <Icon name="shopping cart" color ="white" size="big" />
         </Link>
       </Nav>
     );

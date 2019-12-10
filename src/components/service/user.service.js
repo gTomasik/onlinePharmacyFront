@@ -5,25 +5,66 @@ export const userService = {
     login,
     logout,
     register,
-    saveNewProject,
     saveNewTransaction,
-    addUserToProject,
-    getAllProjects,
     getAllUsers,
-    getProjectsForUser,
-    saveNewActivity,
     getUser,
-    getActivitiesForProject,
-    addUserToActivity,
-    getUsersForActivity,
-    getUsersForProject,
-    getFinishedActivitiesForUser,
-    getAcitveActivitiesForUser,
-    getAllProducts
+    getAllProducts,
+    getAllTransactions,
+    getTransactionsUser,
+    action,
+
+
 };
 
 const config= {
     apiUrl: 'http://localhost:8080'
+}
+
+
+function action(id, action) {
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json',
+        "cache-control": "no-cache",},
+        "processData": false,
+    };
+
+    return fetch(`${config.apiUrl}/api/transaction/${id}/${action}`, requestOptions)
+        .then(handleResponse)
+        .then(response => {
+            return response;
+        });
+}
+
+function getTransactionsUser(user) {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json',
+        "cache-control": "no-cache",},
+        "processData": false,
+    };
+
+    return fetch(`${config.apiUrl}/api/user/${user+2}/transactions`, requestOptions)
+        .then(handleResponse)
+        .then(response => {
+            return response;
+        });
+}
+
+function getAllTransactions() {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json',
+        "cache-control": "no-cache",},
+        "processData": false,
+    };
+
+    return fetch(`${config.apiUrl}/api/transaction/all`, requestOptions)
+        .then(handleResponse)
+        .then(response => {
+            return response;
+        });
 }
 
 function getAllProducts() {
@@ -41,7 +82,6 @@ function getAllProducts() {
         });
 }
 function login(login, password) {
-    console.log(login, password)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json',
@@ -115,12 +155,12 @@ function saveNewTransaction(prescription, user, products) {
         "cache-control": "no-cache",},
         "processData": false,
         body: JSON.stringify({
-            "number": Math.floor(Math.random() * 101),  
+            "number": Math.floor(Math.random() * 10001),  
             "status": "WAITING",
             "user": user,
             "prescriptionRequired": prescription,
             "prescriptions": null, 
-            "products": Ids
+            "productIds": Ids
         })
     };
 
@@ -131,61 +171,7 @@ function saveNewTransaction(prescription, user, products) {
         });
 }
 
-function saveNewProject(name, description, startDate, endDate, img, maxUsers) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-        body: JSON.stringify({
-            "name":name, 
-            "description":description, 
-            "startingDate":startDate, 
-            "finishDate":endDate, 
-            "photo":img, 
-            "maxUsers":parseInt(maxUsers), 
-            "actualUsers":0, 
-            "stage":"REGISTRATION"
-        })
-    };
 
-    return fetch(`${config.apiUrl}/api/project/add`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            return response;
-        });
-}
-
-
-
-function addUserToProject(projectId, userId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-    return fetch(`${config.apiUrl}/api/user/`+userId+`/addToProject/`+projectId, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            return response;
-        });
-}
-
-function getAllProjects() {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-
-    return fetch(`${config.apiUrl}/api/project/all`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            return response;
-        });
-}
 
 function getAllUsers() {
     const requestOptions = {
@@ -206,146 +192,7 @@ function getAllUsers() {
           });
 }
 
-function getProjectsForUser(userId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-    return fetch(`${config.apiUrl}/api/user/`+userId+`/projects`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            if (response) {
-                console.log(response);
-            }
-            return response;
-        });
-}
 
-function getFinishedActivitiesForUser(userId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-    return fetch(`${config.apiUrl}/api/acitivity/user/`+userId+`/finished`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            if (response) {
-                console.log(response);
-            }
-            return response;
-        });
-}
-
-function getAcitveActivitiesForUser(userId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-    return fetch(`${config.apiUrl}/api/activity/user/`+userId+`/notFinished`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            if (response) {
-                console.log(response);
-            }
-            return response;
-        });
-}
-
-function saveNewActivity(name, description, startDate, endDate, img, maxUsers, points, projectId) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-        body: JSON.stringify({"name":name, "description":description, "startingDate":startDate, "finishDate":endDate, "photo":img, "maxUsers":parseInt(maxUsers), "actualUsers":0,"projectId":projectId ,"points":parseInt(points), "type":"temporary", "id":"40"})
-    };
-    return fetch(`${config.apiUrl}/api/activity/add`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            if (response) {
-                console.log(response);
-            }
-            return response;
-        });
-}
-
-function addUserToActivity(activityId, userId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-    return fetch(`${config.apiUrl}/api/user/`+userId+`/addToActivity/`+activityId, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            if (response) {
-                console.log(response);
-            }
-            return response;
-        });
-}
-
-function getActivitiesForProject(projectId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-    return fetch(`${config.apiUrl}/api/activity/`+projectId+`/activities`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            if (response) {
-                console.log(response);
-            }
-            return response;
-        });
-}
-
-
-
-function getUsersForProject(projectId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-    console.log("VVVVVVVVv")
-    console.log(projectId)
-    return fetch(`${config.apiUrl}/api/project/`+projectId+`/users`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            return response;            
-        })
-        .catch(error => {
-            console.error(error);
-          });
-}
-
-function getUsersForActivity(activityId) {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json',
-        "cache-control": "no-cache",},
-        "processData": false,
-    };
-    return fetch(`${config.apiUrl}/api/activity/`+activityId+`/users`, requestOptions)
-        .then(handleResponse)
-        .then(response => {
-            return response;            
-        })
-        .catch(error => {
-            console.error(error);
-          });
-}
 
 function getUser(userId) {
     const requestOptions = {

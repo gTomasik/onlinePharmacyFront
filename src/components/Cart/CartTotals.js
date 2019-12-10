@@ -38,8 +38,8 @@ export default class CartTotals extends Component {
   }
 
   createTransaction = (prescription, user, cart) => {
-   console.log(prescription, user, cart)
-
+  
+    if(prescription) alert("Pamiętaj o wysłaniu zdjęcia recepty do tej transakcji")
     userService.saveNewTransaction(prescription, user, cart)
   }
 

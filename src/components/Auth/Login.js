@@ -65,9 +65,9 @@ export default class Login extends Component {
 
               <Form.Input 
                 fluid name="username" 
-                icon="mail" 
+                icon="user" 
                 iconPosition="left"
-                placeholder="Email Adress" 
+                placeholder="Nazwa Użytkownika" 
                 onChange={this.handleChange}
                 value={username}
                 className={this.handleInputError(errors, 'email')}
@@ -77,7 +77,7 @@ export default class Login extends Component {
                 fluid name="password" 
                 icon="lock" 
                 iconPosition="left"
-                placeholder="Password" 
+                placeholder="Hasło" 
                 onChange={this.handleChange}
                 value={password}
                 className={this.handleInputError(errors, 'password')}
